@@ -1,0 +1,49 @@
+name: Build Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build sirius-bot (${{ matrix.artifact }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact: sirius-bot-linux-x86_64
+            binary: target/release/sirius-bot
+            target: ""
+
+          - os: windows-latest
+            artifact: sirius-bot-windows-x86_64
+            binary: target/release/sirius-bot.exe
+            target: ""
+
+          - os: macos-latest
+            artifact: sirius-bot-macos-aarch64
+            binary: target/release/sirius-bot
+            target: ""
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Build release
+        run: cargo build --release --locked ${{ matrix.target != '' && format('--target {0}', matrix.target) || '' }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.binary }}
