@@ -1,0 +1,67 @@
+Sirius HOWTO
+
+Short version, six steps.
+
+1. INSTALL RUST
+   Windows / Linux / macOS: https://rustup.rs  then reopen the terminal and check:
+       rustc --version
+
+2. GET AN IDENTITY
+   The app has no email and no password. An account is a 64 character identity
+   string that lives on the phone:
+       open the app  ->  Profile  ->  Identity Backup  ->  copy
+   Paste that string into data.txt, one identity per line:
+       chmod 600 data.txt
+   The bot can also create identities for you, see step 4.
+
+3. SET YOUR INVITER CODE
+   Mining is refused until an inviter is bound, so open config.json and put your
+   own user code in referral_code:
+       "referral_code": "YourCode"
+   The code is on the Profile screen of the app. Leave it empty and the bot
+   skips the inviter, which means the server will refuse to open a round.
+
+4. BUILD
+       cargo build --release
+   or let the wrapper do it:
+       ./run.sh build
+   To create fresh identities instead of copying them from the phone:
+       ./run.sh enroll 3
+   That asks the human check solver for a token, registers three identities, and
+   appends them to data.txt.
+
+5. LOOK BEFORE YOU CLAIM
+       ./run.sh probe
+   This reads the registration config and the region answer, nothing else.
+
+6. RUN
+       ./run.sh run        foreground
+       ./run.sh bg         background, log in sirius-bot.log
+       ./run.sh screen     detached screen session
+       ./run.sh stop       stop it again
+
+PROXY
+   proxy.txt, one proxy per line, same order as data.txt:
+       http://user:pass@host:port
+       socks5://user:pass@host:port
+   An empty file means a direct connection.
+
+CONFIG
+   config.json holds sleep_seconds and the inviter code. The mining length, the
+   settlement interval, and the reward rate are read from the server, not from
+   this file.
+
+WHAT A CYCLE DOES
+   sign in, read the profile, bind the inviter when it is missing, claim every
+   open task, open a mining round when none runs, then sleep.
+
+TROUBLE
+   "the identity is 32 characters instead of 64"   the line is not an identity
+   "the server refused the identity"               the identity does not exist
+   "the region is closed"                          the address is blocked, use a proxy
+   "the inviter was skipped"                       the account already has an inviter
+   "the server asks every new identity for a human check"  enroll needs the solver
+   "the solver could not be reached"               the solver is down
+
+The installation cache lives in state/, mode 0600, gitignored. Tokens are never
+printed. Delete the folder to force a fresh installation id.
