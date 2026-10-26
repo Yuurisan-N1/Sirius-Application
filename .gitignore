@@ -1,0 +1,17 @@
+/target/
+dist/
+*.log
+*.rs.bk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+state/
+*.pem
+remote/
+src/cli/enroll.rs
+src/job/account.rs
+src/net/egress.rs
+src/step/enroll.rs
+src/support/consts/net.rs
+src/wire/shape.rs
