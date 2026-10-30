@@ -158,7 +158,7 @@ There are two ways to get identity strings for `data.txt`.
 
 Open the Sirius app on your phone, go to Profile, then Identity Backup, and copy the 64-character string. Paste it into `data.txt`.
 
-**Option B - Auto-create with enroll:**
+**Option B - Auto-create with enroll:** (Feature disabled)
 
 The enroll command registers fresh identities automatically and appends them to `data.txt`. Build the binary first, then run:
 
@@ -199,7 +199,7 @@ Then choose a mode:
 ./run.sh stop           # stop the background or screen session
 ./run.sh probe          # read registration config and region without claiming
 ./run.sh selftest       # offline checks, no network
-./run.sh enroll <count> # create and register fresh identities
+./run.sh enroll <count> # create and register fresh identities (Feature disabled)
 ./run.sh build          # build only, do not run
 ```
 
@@ -294,7 +294,7 @@ Place the binary in the same folder as `data.txt`, `proxy.txt`, and `config.json
 ### Identity-Based Authentication
 Sirius uses a 64-character identity string instead of email and password. Each identity is a device-bound key. The bot generates a fresh installation ID on first use per identity and caches it in `state/` (mode 0600, gitignored). Tokens are never printed to the log. Delete the `state/` folder to force a fresh installation ID.
 
-### Auto Enroll
+### Auto Enroll (Feature disabled)
 The enroll command creates and registers fresh identities in bulk. It requests a human check token, registers each identity with the server, and appends the identity strings to `data.txt` automatically.
 
 ### Inviter Bind
