@@ -7,7 +7,7 @@ pub const ENABLE_INVITE: bool = true;
 pub const ENABLE_MINING: bool = true;
 pub const ENABLE_QUESTS: bool = true;
 
-pub const REFERRAL_CODE: &str = "EghAsP";
+pub const REFERRAL_CODE: &str = "SAMPLE01";
 pub const AVATAR_CODE: &str = "A1";
 
 pub const SETTLE_POLLS: u32 = 4;
