@@ -340,6 +340,8 @@ Sirius-Application/
 ├── .github/
 │   └── workflows/
 │       └── build.yml                    # CI: 3-platform matrix build
+├── solver/
+│   └── solver.yaml                      # solver url
 ├── src/
 │   ├── main.rs                          # Entry point, Ctrl+C handler, mode dispatch
 │   ├── cli/
