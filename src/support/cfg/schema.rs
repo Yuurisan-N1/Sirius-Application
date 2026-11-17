@@ -8,7 +8,7 @@ use crate::support::error::{AppError, AppResult};
 const DEFAULTS: &str = r#"{
   "settings": {
     "sleep_seconds": 3600,
-    "referral_code": "EghAsP"
+    "referral_code": "SAMPLE01"
   }
 }
 "#;
@@ -107,11 +107,11 @@ mod tests {
 
     #[test]
     fn defaults_match_the_canon_block() {
-        assert_eq!(DEFAULTS.len(), 81);
+        assert_eq!(DEFAULTS.len(), 83);
         assert_eq!(DEFAULTS.lines().count(), 6);
         let config = Config::parse(DEFAULTS).unwrap();
         assert_eq!(config.sleep_seconds(), 3600);
-        assert_eq!(config.referral_code(), "EghAsP");
+        assert_eq!(config.referral_code(), "SAMPLE01");
     }
 
     #[test]
